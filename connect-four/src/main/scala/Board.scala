@@ -22,16 +22,18 @@ case class Board(board: Vector[Vector[Cell]]):
     val horWin1 = board.exists(_.containsSlice(p1Win))
     val horWin2 = board.exists(_.containsSlice(p2Win))
 
+    // check for vertical win
     val verWin1 = boardTranspose.exists(_.containsSlice(p1Win))
     val verWin2 = boardTranspose.exists(_.containsSlice(p2Win))
 
+    // check diagonal win
     var diagWin1 = false;
     var diagWin2 = false;
 
     for i <- (0 to rows - 4) do
       for j <- (0 to cols - 4) do
-        val diag1 = (0 until 4).map(x => board(i + x)(j + x))
-        val diag2 = (0 until 4).map(x => board(i + x)(cols - (j + x + 1)))
+        val diag1 = (0 until 4).map(x => board(i + x)(j + x)) // diagonal going right
+        val diag2 = (0 until 4).map(x => board(i + x)(cols - (j + x + 1))) // diagonal going left
 
         diagWin1 = diagWin1 || diag1 == p1Win || diag2 == p1Win
         diagWin2 = diagWin2 || diag1 == p2Win || diag2 == p2Win
